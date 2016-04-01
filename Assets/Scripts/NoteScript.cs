@@ -14,6 +14,7 @@ public class NoteScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         InitialScale = transform.localScale;
+        transform.localScale = Vector3.zero;
         GameMngr = GameObject.FindGameObjectWithTag("GameController");
     }
 	
@@ -23,7 +24,9 @@ public class NoteScript : MonoBehaviour {
         Vector3 scale = Vector3.Lerp(Vector3.zero, InitialScale, TimeSinceSpawn / TimeToNoteHit);
 
         transform.localScale = scale;
-	}
+
+        if(TimeSinceSpawn > (TimeToNoteHit + 0.4f)) Destroy(gameObject.transform.parent.gameObject);
+    }
 
     void OnMouseDown()
     {

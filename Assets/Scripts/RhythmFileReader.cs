@@ -19,7 +19,7 @@ public class RhythmFileReader : MonoBehaviour {
 	
 	}
 
-    void LoadSong(string songName)
+    public void LoadSong(string songName)
     {
         times = new List<float>();
         notePositions = new List<float>();
@@ -32,16 +32,19 @@ public class RhythmFileReader : MonoBehaviour {
             do
             {
                 line = fileReader.ReadLine();
+                Debug.Log("Loaded Line: " + line);
 
                 if(line != null)
                 {
                     if (firstLine)
                     {
                         bpm = int.Parse(line);
+                        firstLine = false;
                     }
                     else
                     {
                         string[] note = line.Split(',');
+                        Debug.Log(note[0] + "   " + note[1]);
                         times.Add((float.Parse(note[0])));
                         notePositions.Add((float.Parse(note[1])));
                     }
@@ -49,5 +52,7 @@ public class RhythmFileReader : MonoBehaviour {
             }
             while (line != null);
         }
+
+        GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().OnSongLoaded(times, notePositions);
     }
 }
