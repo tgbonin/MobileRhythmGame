@@ -6,7 +6,7 @@ using System.IO;
 public class RhythmFileReader : MonoBehaviour {
 
     private List<float> times;
-    private List<float> notePositions;
+    private List<int> notePositions;
     private int bpm;
 
 	// Use this for initialization
@@ -22,7 +22,7 @@ public class RhythmFileReader : MonoBehaviour {
     public void LoadSong(string songName)
     {
         times = new List<float>();
-        notePositions = new List<float>();
+        notePositions = new List<int>();
 
         string line;
         StreamReader fileReader = new StreamReader(songName, Encoding.Default);
@@ -32,7 +32,7 @@ public class RhythmFileReader : MonoBehaviour {
             do
             {
                 line = fileReader.ReadLine();
-                Debug.Log("Loaded Line: " + line);
+                //Debug.Log("Loaded Line: " + line);
 
                 if(line != null)
                 {
@@ -44,9 +44,9 @@ public class RhythmFileReader : MonoBehaviour {
                     else
                     {
                         string[] note = line.Split(',');
-                        Debug.Log(note[0] + "   " + note[1]);
+                        //Debug.Log(note[0] + "   " + note[1]);
                         times.Add((float.Parse(note[0])));
-                        notePositions.Add((float.Parse(note[1])));
+                        notePositions.Add((int.Parse(note[1])));
                     }
                 }
             }

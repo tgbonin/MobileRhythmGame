@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour {
     public UnityEngine.UI.Text scoreText;
 
     private List<float> songTimingsList;
-    private List<float> songNotePositionsList;
+    private List<int> songNotePositionsList;
+
+    private Vector2[] notePositions;
 
     private bool songPlaying;
 
@@ -27,6 +29,13 @@ public class GameManager : MonoBehaviour {
         songPlaying = false;
         timeSinceSongStart = 0.0f;
 
+        notePositions = new Vector2[5];
+        notePositions[0] = new Vector2(-0.05f, -1.16f); //green
+        notePositions[1] = new Vector2(-1.099f, 0.006f); //yellow
+        notePositions[2] = new Vector2(-0.914f, -2.585f); //blue
+        notePositions[3] = new Vector2(0.846f, 0.145f); //red
+        notePositions[4] = new Vector2(1.027f, -2.43f); //orange
+
         GameObject.FindGameObjectWithTag("SongLoader").GetComponent<RhythmFileReader>().LoadSong("Assets/Songs/test.txt");
 	}
 	
@@ -38,15 +47,9 @@ public class GameManager : MonoBehaviour {
 
             while(timeSinceSongStart >= songTimingsList[0])
             {
-                //spawn note
-                Debug.Log(songTimingsList[0] + ",   " + songNotePositionsList[0]);
-
-
-                float rndX = Random.Range(-6.0f, 6.0f);
-                float rndY = Random.Range(-2.0f, 2.0f);
-
-                Instantiate(noteObjectPrefab, new Vector3(rndX, rndY, 0.0f), Quaternion.identity);
-
+                GameObject nO = Instantiate(noteObjectPrefab, notePositions[songNotePositionsList[0]], Quaternion.identity) as GameObject;
+                nO.transform.position = new Vector2(nO.transform.position.x + 0.37f, nO.transform.position.y + 0.37f);
+                nO.GetComponentInChildren<NoteScript>().SetSprite(songNotePositionsList[0]);
 
                 songTimingsList.RemoveAt(0);
                 songNotePositionsList.RemoveAt(0);
@@ -57,7 +60,7 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-    public void OnSongLoaded(List<float> stl, List<float>snpl)
+    public void OnSongLoaded(List<float> stl, List<int>snpl)
     {
         songTimingsList = stl;
         songNotePositionsList = snpl;

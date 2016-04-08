@@ -7,15 +7,51 @@ public class NoteScript : MonoBehaviour {
     float TimeToNoteHit;
     float TimeSinceSpawn;
 
+    [SerializeField]
+    Sprite Note_Green;
+    [SerializeField]
+    Sprite Note_Blue;
+    [SerializeField]
+    Sprite Note_Yellow;
+    [SerializeField]
+    Sprite Note_Red;
+    [SerializeField]
+    Sprite Note_Orange;
+
     Vector3 InitialScale;
 
     GameObject GameMngr;
+    SpriteRenderer spriteRenderer;
 
 	// Use this for initialization
 	void Start () {
-        InitialScale = transform.localScale;
+        InitialScale = GameObject.FindGameObjectWithTag("TurtleBase").transform.localScale / 2;
         transform.localScale = Vector3.zero;
         GameMngr = GameObject.FindGameObjectWithTag("GameController");
+    }
+
+    public void SetSprite(int colour)
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        Debug.Log(spriteRenderer.sprite.name);
+
+        switch (colour){
+            case 0:
+                spriteRenderer.sprite = Note_Green;
+                return;
+            case 1:
+                spriteRenderer.sprite = Note_Yellow ;
+                return;
+            case 2:
+                spriteRenderer.sprite = Note_Blue;
+                return;
+            case 3:
+                spriteRenderer.sprite = Note_Red;
+                return;
+            case 4:
+                spriteRenderer.sprite = Note_Orange;
+                return;
+        }
     }
 	
 	// Update is called once per frame
