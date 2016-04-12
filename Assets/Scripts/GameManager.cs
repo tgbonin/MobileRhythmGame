@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour {
             while(timeSinceSongStart >= songTimingsList[0])
             {
                 GameObject nO = Instantiate(noteObjectPrefab, notePositions[songNotePositionsList[0]], Quaternion.identity) as GameObject;
-                nO.transform.position = new Vector2(nO.transform.position.x + 0.37f, nO.transform.position.y + 0.37f);
                 nO.GetComponentInChildren<NoteScript>().SetSprite(songNotePositionsList[0]);
 
                 songTimingsList.RemoveAt(0);
