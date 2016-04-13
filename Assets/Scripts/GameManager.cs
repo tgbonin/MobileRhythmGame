@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour {
         if (songPlaying)
         {
             timeSinceSongStart += Time.deltaTime * 1000;
-			if (timeSinceSongStart >= 1250 && !audioPlayer.isPlaying) 
+			if (timeSinceSongStart >= 1280 && !audioPlayer.isPlaying) 
 			{
 				audioPlayer.UnPause ();
 			}
