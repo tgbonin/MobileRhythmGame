@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
 
     private float timeSinceSongStart;
 
+	private AudioSource audioPlayer;
+
     [SerializeField]
     int secondsBeforeSongStart;
 
@@ -37,6 +39,9 @@ public class GameManager : MonoBehaviour {
         notePositions[4] = new Vector2(1.027f, -2.43f); //orange
 
         GameObject.FindGameObjectWithTag("SongLoader").GetComponent<RhythmFileReader>().LoadSong("Assets/Songs/test.txt");
+
+		audioPlayer = GameObject.FindObjectOfType<AudioSource> ();
+		audioPlayer.Pause ();
 	}
 	
 	// Update is called once per frame
@@ -44,6 +49,10 @@ public class GameManager : MonoBehaviour {
         if (songPlaying)
         {
             timeSinceSongStart += Time.deltaTime * 1000;
+			if (timeSinceSongStart >= 1280 && !audioPlayer.isPlaying) 
+			{
+				audioPlayer.UnPause ();
+			}
 
             while(timeSinceSongStart >= songTimingsList[0])
             {
