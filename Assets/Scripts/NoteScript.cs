@@ -33,7 +33,6 @@ public class NoteScript : MonoBehaviour {
     public void SetSprite(int colour)
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        Debug.Log(spriteRenderer.sprite.name);
 
         switch (colour){
             case 0:
